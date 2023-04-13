@@ -1,0 +1,42 @@
+clc;
+clear;
+close all;
+
+***F1***
+
+CRs=[CR(p1)***F8***
+
+M=[weighting(p1),weighting(p2)***F2***
+w=weighting(D);
+P=M*w;
+
+function weight=weighting(M)
+    values=eig(M);
+    lambda_max=max(values);
+    n=size(M,1);
+    A=M-(lambda_max*eye(n));
+    
+    cl=ones(n,1);
+    rw=[ones(1,n),0];
+    A=[[A,cl];rw];
+    C=[zeros(n,1);1];
+    
+    W=inv(A)*C;
+
+    n1=size(W,1);
+    u=n1(1);
+    weight=W(1:u-1);
+end
+
+function CR0=CR(A)
+    n=size(A,1);
+    ***F4***
+    % ***F5***
+    RI0=RI(n);
+    values=eig(A);
+    lambda_max=max(values);
+    CI0=abs(lambda_max-n)/(n-1);
+    ***F6***
+    ***F7***
+    CR0=CI0/RI0;
+end
