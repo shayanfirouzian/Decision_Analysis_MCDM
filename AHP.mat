@@ -21,26 +21,23 @@ CRs=[CR(p1),CR(p2),CR(p3),CR(p4),CR(p5),CR(p6),CR(D)];
 M=[weighting(p1),weighting(p2),weighting(p3),weighting(p4),weighting(p5),weighting(p6)];
 w=weighting(D);
 P=M*w;
-
-function w=weighting(M)
+function weight=weighting(M)
     values=eig(M);
-    n=size(M,1);
     lambda_max=max(values);
+    n=size(M,1);
     A=M-(lambda_max*eye(n));
     
-    % trick :))
     cl=ones(n,1);
     rw=[ones(1,n),0];
     A=[[A,cl];rw];
     C=[zeros(n,1);1];
     
-    X=inv(A)*C;
+    W=inv(A)*C;
 
-    n1=size(X,1);
+    n1=size(W,1);
     u=n1(1);
-    w=X(1:u-1);
+    weight=W(1:u-1);
 end
-
 function CR0=CR(A)
     n=size(A,1);
     RI=[0,0,0.58,0.9,1.12,1.24,1.32,1.41,1.45,1.49,1.51,1.48,1.56,1.57,1.59];
