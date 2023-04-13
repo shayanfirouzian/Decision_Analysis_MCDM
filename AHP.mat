@@ -21,11 +21,11 @@ CRs=[CR(p1),CR(p2),CR(p3),CR(p4),CR(p5),CR(p6),CR(D)];
 M=[weighting(p1),weighting(p2),weighting(p3),weighting(p4),weighting(p5),weighting(p6)];
 w=weighting(D);
 P=M*w;
-function weight=weighting(M)
-    values=eig(M);
+function weight=weighting(D)
+    values=eig(D);
     lambda_max=max(values);
-    n=size(M,1);
-    A=M-(lambda_max*eye(n));
+    n=size(D,1);
+    A=D-(lambda_max*eye(n));
     
     cl=ones(n,1);
     rw=[ones(1,n),0];
@@ -38,12 +38,12 @@ function weight=weighting(M)
     u=n1(1);
     weight=W(1:u-1);
 end
-function CR0=CR(A)
-    n=size(A,1);
+function CR0=CR(D)
+    n=size(D,1);
     RI=[0,0,0.58,0.9,1.12,1.24,1.32,1.41,1.45,1.49,1.51,1.48,1.56,1.57,1.59];
     % RI is abbreviation of "Random Index" and is a pre-defined constant parameter for any given "n"
     RI0=RI(n);
-    values=eig(A);
+    values=eig(D);
     lambda_max=max(values);
     CI0=abs(lambda_max-n)/(n-1);
     % CI is abbreviation of Consistancy Index
